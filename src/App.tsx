@@ -132,6 +132,17 @@ function App() {
       const data = JSON.parse(response)
       setAiInsights(data.insights || [])
       
+      // Show success notification
+      toast.success(`🧠 AI analysis complete! Found ${data.insights?.length || 0} insights`, {
+        action: {
+          label: 'View insights',
+          onClick: () => {
+            const insightsTab = document.querySelector('[value="insights"]') as HTMLElement
+            insightsTab?.click()
+          }
+        }
+      })
+      
     } catch (error) {
       console.error('AI analysis failed:', error)
       toast.error('AI analysis failed. Please try again.')
@@ -283,10 +294,65 @@ function App() {
     setProductivityStats(stats)
   }, [tasks, categories])
 
+  // Initialize with sample tasks if none exist to demonstrate AI features
+  useEffect(() => {
+    if (!tasks || tasks.length === 0) {
+      const sampleTasks: Task[] = [
+        {
+          id: '1',
+          title: 'Review quarterly budget reports',
+          completed: true,
+          categoryId: 'work',
+          createdAt: Date.now() - 86400000 * 3, // 3 days ago
+          completedAt: Date.now() - 86400000 * 2, // 2 days ago
+          priority: 'high'
+        },
+        {
+          id: '2',
+          title: 'Schedule team meeting for project kickoff',
+          completed: true,
+          categoryId: 'work',
+          createdAt: Date.now() - 86400000 * 2,
+          completedAt: Date.now() - 86400000 * 1,
+          priority: 'medium'
+        },
+        {
+          id: '3',
+          title: 'Buy groceries for the week',
+          completed: false,
+          categoryId: 'personal',
+          createdAt: Date.now() - 86400000 * 1,
+          priority: 'medium'
+        },
+        {
+          id: '4',
+          title: 'Book dentist appointment',
+          completed: false,
+          categoryId: 'health',
+          createdAt: Date.now() - 3600000 * 12, // 12 hours ago
+          priority: 'high'
+        },
+        {
+          id: '5',
+          title: 'Update project documentation',
+          completed: false,
+          categoryId: 'work',
+          createdAt: Date.now() - 3600000 * 6, // 6 hours ago
+          priority: 'low'
+        }
+      ]
+      setTasks(sampleTasks)
+    }
+  }, [])
+
   // Generate initial AI insights
   useEffect(() => {
     if (tasks && tasks.length >= 3 && aiInsights.length === 0) {
-      generateAIInsights()
+      // Add a small delay to ensure tasks are properly set
+      const timer = setTimeout(() => {
+        generateAIInsights()
+      }, 1000)
+      return () => clearTimeout(timer)
     }
   }, [tasks])
 
@@ -413,9 +479,14 @@ function App() {
             <div>
               <h1 className="text-3xl font-bold text-foreground mb-2 flex items-center gap-3">
                 TaskFlow AI
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                <div className={`w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center ${aiInsights.length > 0 ? 'animate-pulse' : ''}`}>
                   <Brain className="w-4 h-4 text-white" />
                 </div>
+                {aiInsights.length > 0 && (
+                  <Badge variant="secondary" className="bg-green-100 text-green-700 border-green-200">
+                    AI Active
+                  </Badge>
+                )}
               </h1>
               <p className="text-muted-foreground">AI-powered task management with intelligent insights</p>
             </div>
@@ -423,17 +494,22 @@ function App() {
               <Button 
                 onClick={generateAIInsights} 
                 disabled={isAnalyzing || !tasks || tasks.length < 3}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 {isAnalyzing ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                    Analyzing...
+                    Analyzing Tasks...
                   </>
                 ) : (
                   <>
                     <Sparkle className="w-4 h-4 mr-2" />
-                    AI Insights
+                    {aiInsights.length > 0 ? 'Refresh AI Insights' : 'Generate AI Insights'}
+                    {tasks && tasks.length >= 3 && (
+                      <Badge variant="secondary" className="ml-2 bg-white/20 text-white border-white/20">
+                        {tasks.length} tasks
+                      </Badge>
+                    )}
                   </>
                 )}
               </Button>
@@ -527,26 +603,68 @@ function App() {
 
             {/* AI Insights Preview */}
             {aiInsights.length > 0 && (
-              <Card className="mb-6 border-purple-200 bg-gradient-to-r from-blue-50 to-purple-50">
+              <Card className="mb-6 border-purple-200 bg-gradient-to-r from-blue-50 to-purple-50 shadow-lg">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-purple-700">
                     <Brain className="w-5 h-5" />
-                    Quick AI Insights
+                    AI Insights Active
+                    <Badge variant="secondary" className="ml-auto bg-purple-100 text-purple-700">
+                      {aiInsights.length} insights
+                    </Badge>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid gap-2">
+                  <div className="grid gap-3">
                     {aiInsights.slice(0, 2).map((insight, idx) => (
-                      <div key={idx} className="text-sm">
-                        <div className="font-medium text-purple-800">{insight.title}</div>
-                        <div className="text-purple-600">{insight.description}</div>
+                      <div key={idx} className="bg-white/70 p-3 rounded-lg border border-purple-100">
+                        <div className="flex items-start justify-between mb-1">
+                          <div className="font-medium text-purple-800 text-sm">{insight.title}</div>
+                          <Badge variant="outline" className="text-xs">
+                            {Math.round(insight.confidence * 100)}%
+                          </Badge>
+                        </div>
+                        <div className="text-purple-600 text-sm">{insight.description}</div>
+                        {insight.actionable && (
+                          <Badge variant="outline" className="text-green-600 text-xs mt-2">
+                            ✓ Actionable
+                          </Badge>
+                        )}
                       </div>
                     ))}
-                    {aiInsights.length > 2 && (
-                      <Button variant="link" className="justify-start p-0 h-auto text-purple-600" onClick={() => {}}>
-                        View all {aiInsights.length} insights →
+                    <div className="flex justify-between items-center pt-2">
+                      {aiInsights.length > 2 && (
+                        <Button 
+                          variant="link" 
+                          className="justify-start p-0 h-auto text-purple-600 font-medium" 
+                          onClick={() => {
+                            // Switch to insights tab
+                            const insightsTab = document.querySelector('[value="insights"]') as HTMLElement
+                            insightsTab?.click()
+                          }}
+                        >
+                          View all {aiInsights.length} insights →
+                        </Button>
+                      )}
+                      <Button 
+                        onClick={generateAIInsights} 
+                        variant="outline"
+                        size="sm"
+                        disabled={isAnalyzing}
+                        className="ml-auto border-purple-200 text-purple-600 hover:bg-purple-50"
+                      >
+                        {isAnalyzing ? (
+                          <>
+                            <div className="w-3 h-3 border-2 border-purple-600 border-t-transparent rounded-full animate-spin mr-1" />
+                            Updating...
+                          </>
+                        ) : (
+                          <>
+                            <Sparkle className="w-3 h-3 mr-1" />
+                            Refresh
+                          </>
+                        )}
                       </Button>
-                    )}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
