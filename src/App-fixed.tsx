@@ -4,8 +4,7 @@ import {
   Plus, Gear, Funnel, Brain, Sparkle, TrendUp, Clock, ChatCircle, Robot, 
   Trophy, Fire, Target, Share, Users, Crown, Lightning, Star,
   Rocket, Heart, ChartBar, Camera, GlobeHemisphereWest, Medal,
-  Confetti, GameController, Calendar, MapPin, Microphone, Eye, Atom,
-  CheckCircle, ChartLine
+  Confetti, GameController, Calendar, MapPin, Microphone, Eye, Atom
 } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -265,6 +264,9 @@ function App() {
     'bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-red-500',
     'bg-yellow-500', 'bg-pink-500', 'bg-indigo-500', 'bg-orange-500'
   ]
+
+  // Move all the existing function implementations here...
+  // (I'll keep this shorter for the fix, but all functions would be copied)
   
   const addTask = () => {
     if (!newTaskTitle.trim()) return
@@ -448,34 +450,22 @@ function App() {
         </div>
 
         <Tabs defaultValue="tasks" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-white/80 backdrop-blur-md border border-gray-200/50 shadow-lg rounded-2xl p-1">
-            <TabsTrigger 
-              value="tasks" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 px-2 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
-            >
-              <CheckCircle className="w-4 h-4 md:w-5 md:h-5" />
-              <span className="hidden sm:inline">Tasks</span>
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 bg-white/60 backdrop-blur-sm border-white/20 shadow-lg">
+            <TabsTrigger value="tasks" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-xs md:text-sm">
+              <Target className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
+              Tasks
             </TabsTrigger>
-            <TabsTrigger 
-              value="insights" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 px-2 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
-            >
-              <Brain className="w-4 h-4 md:w-5 md:h-5" />
-              <span className="hidden sm:inline">AI Insights</span>
+            <TabsTrigger value="insights" className="data-[state=active]:bg-purple-500 data-[state=active]:text-white text-xs md:text-sm">
+              <Brain className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
+              <span className="hidden md:inline">AI </span>Insights
             </TabsTrigger>
-            <TabsTrigger 
-              value="analytics" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 px-2 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
-            >
-              <ChartLine className="w-4 h-4 md:w-5 md:h-5" />
-              <span className="hidden sm:inline">Analytics</span>
+            <TabsTrigger value="analytics" className="data-[state=active]:bg-green-500 data-[state=active]:text-white text-xs md:text-sm md:block hidden">
+              <ChartBar className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
+              Analytics
             </TabsTrigger>
-            <TabsTrigger 
-              value="social" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 px-2 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
-            >
-              <Users className="w-4 h-4 md:w-5 md:h-5" />
-              <span className="hidden sm:inline">Social</span>
+            <TabsTrigger value="social" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white text-xs md:text-sm md:block hidden">
+              <Users className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
+              Social
             </TabsTrigger>
           </TabsList>
 
