@@ -345,7 +345,7 @@ function App() {
     // Category multiplier
     const categoryMultiplier = category.xpMultiplier || 1.0
     
-    return Math.round(baseXP * (priorityMultiplier[task.priority || 'medium']) * difficultyMultiplier * categoryMultiplier)
+    return Math.round(baseXP * (priorityMultiplier[task.priority || 'medium']) * difficultyMultiplier * categoryMultiplier);
   }
 
   // Add XP and handle level ups
