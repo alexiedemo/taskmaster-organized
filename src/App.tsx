@@ -448,42 +448,42 @@ function App() {
         </div>
 
         <Tabs defaultValue="tasks" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-white/80 backdrop-blur-md border border-gray-200/50 shadow-lg rounded-2xl p-1.5">
+          <TabsList className="grid w-full grid-cols-4 bg-white/80 backdrop-blur-md border border-gray-200/50 shadow-lg rounded-xl p-1">
             <TabsTrigger 
               value="tasks" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 md:py-3 px-1 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
+              className="flex items-center justify-center gap-1 rounded-lg py-1.5 md:py-2 px-2 md:px-3 text-xs font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
             >
-              <CheckCircle className="w-4 h-4 md:w-5 md:h-5" />
+              <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
               <span className="hidden sm:inline">Tasks</span>
             </TabsTrigger>
             <TabsTrigger 
               value="insights" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 md:py-3 px-1 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
+              className="flex items-center justify-center gap-1 rounded-lg py-1.5 md:py-2 px-2 md:px-3 text-xs font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
             >
-              <Brain className="w-4 h-4 md:w-5 md:h-5" />
+              <Brain className="w-3 h-3 md:w-4 md:h-4" />
               <span className="hidden sm:inline">Insights</span>
             </TabsTrigger>
             <TabsTrigger 
               value="analytics" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 md:py-3 px-1 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
+              className="flex items-center justify-center gap-1 rounded-lg py-1.5 md:py-2 px-2 md:px-3 text-xs font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
             >
-              <ChartLine className="w-4 h-4 md:w-5 md:h-5" />
+              <ChartLine className="w-3 h-3 md:w-4 md:h-4" />
               <span className="hidden sm:inline">Analytics</span>
             </TabsTrigger>
             <TabsTrigger 
               value="social" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 md:py-3 px-1 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
+              className="flex items-center justify-center gap-1 rounded-lg py-1.5 md:py-2 px-2 md:px-3 text-xs font-medium transition-all duration-200 data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
             >
-              <Users className="w-4 h-4 md:w-5 md:h-5" />
+              <Users className="w-3 h-3 md:w-4 md:h-4" />
               <span className="hidden sm:inline">Social</span>
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="tasks" className="mt-6">
+          <TabsContent value="tasks" className="mt-4">
             {/* Mobile-First Task Input */}
-            <Card className="mb-6 bg-white/60 backdrop-blur-sm border-white/20 shadow-lg">
-              <CardContent className="p-4 md:p-6">
-                <div className="space-y-4">
+            <Card className="mb-4 bg-white/60 backdrop-blur-sm border-white/20 shadow-lg">
+              <CardContent className="p-3 md:p-4">
+                <div className="space-y-3">
                   {/* Task input row */}
                   <div className="flex gap-2">
                     <Input
@@ -492,10 +492,11 @@ function App() {
                       value={newTaskTitle}
                       onChange={(e) => setNewTaskTitle(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && addTask()}
-                      className="flex-1 border-purple-200 focus:border-purple-400 focus:ring-purple-400"
+                      className="flex-1 border-purple-200 focus:border-purple-400 focus:ring-purple-400 text-sm"
                     />
                     <Button 
                       onClick={addTask}
+                      size="sm"
                       className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg px-3"
                     >
                       <Plus className="w-4 h-4" />
@@ -503,18 +504,18 @@ function App() {
                   </div>
 
                   {/* Controls row */}
-                  <div className="flex flex-col md:flex-row gap-2 md:gap-4">
+                  <div className="flex flex-col md:flex-row gap-2">
                     <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                      <SelectTrigger className="border-purple-200">
+                      <SelectTrigger className="border-purple-200 text-sm h-8">
                         <SelectValue placeholder="Category" />
                       </SelectTrigger>
                       <SelectContent>
                         {currentCategories.map(category => (
                           <SelectItem key={category.id} value={category.id}>
                             <div className="flex items-center gap-2">
-                              <div className={`w-3 h-3 rounded-full ${category.color}`} />
-                              <span className="md:inline hidden">{category.icon}</span>
-                              <span className="truncate">{category.name}</span>
+                              <div className={`w-2 h-2 rounded-full ${category.color}`} />
+                              <span className="md:inline hidden text-xs">{category.icon}</span>
+                              <span className="truncate text-sm">{category.name}</span>
                             </div>
                           </SelectItem>
                         ))}
@@ -522,31 +523,31 @@ function App() {
                     </Select>
 
                     <Select value={filterCategory} onValueChange={setFilterCategory}>
-                      <SelectTrigger className="border-purple-200">
+                      <SelectTrigger className="border-purple-200 text-sm h-8">
                         <SelectValue placeholder="Filter" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">
                           <div className="flex items-center gap-2">
                             <Funnel className="w-3 h-3" />
-                            All Categories
+                            <span className="text-sm">All Categories</span>
                           </div>
                         </SelectItem>
                         {currentCategories.map(category => (
                           <SelectItem key={category.id} value={category.id}>
                             <div className="flex items-center gap-2">
-                              <div className={`w-3 h-3 rounded-full ${category.color}`} />
-                              <span className="md:inline hidden">{category.icon}</span>
-                              <span className="truncate">{category.name}</span>
+                              <div className={`w-2 h-2 rounded-full ${category.color}`} />
+                              <span className="md:inline hidden text-xs">{category.icon}</span>
+                              <span className="truncate text-sm">{category.name}</span>
                             </div>
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
 
-                    <Button variant="outline" className="border-purple-200 md:px-4 px-3">
-                      <Gear className="w-4 h-4" />
-                      <span className="md:inline hidden ml-2">Categories</span>
+                    <Button variant="outline" size="sm" className="border-purple-200 h-8 px-3">
+                      <Gear className="w-3 h-3" />
+                      <span className="md:inline hidden ml-2 text-sm">Categories</span>
                     </Button>
                   </div>
                 </div>
@@ -554,24 +555,24 @@ function App() {
             </Card>
 
             {/* Mobile-Friendly Task Lists */}
-            <div className="space-y-6">
+            <div className="space-y-4">
               {/* Pending Tasks */}
               {pendingTasks.length > 0 && (
                 <Card className="bg-white/60 backdrop-blur-sm border-white/20 shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Target className="w-5 h-5 text-blue-500" />
+                  <CardHeader className="pb-2">
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Target className="w-4 h-4 text-blue-500" />
                       Active Tasks
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-700 text-xs">
                         {pendingTasks.length}
                       </Badge>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3">
+                  <CardContent className="space-y-2 pt-0">
                     {pendingTasks.map(task => {
                       const category = getCategoryById(task.categoryId)
                       return (
-                        <div key={task.id} className="task-item flex items-start gap-3 p-3 md:p-4 bg-white/50 rounded-lg md:rounded-xl border border-gray-200/50 hover:shadow-lg transition-all duration-200">
+                        <div key={task.id} className="task-item flex items-start gap-2 p-2 md:p-3 bg-white/50 rounded-lg border border-gray-200/50 hover:shadow-lg transition-all duration-200">
                           <Checkbox
                             id={`task-${task.id}`}
                             checked={task.completed}
@@ -581,11 +582,11 @@ function App() {
                           <div className="flex-1 min-w-0">
                             <label 
                               htmlFor={`task-${task.id}`}
-                              className="font-medium cursor-pointer text-gray-800 block text-sm md:text-base leading-relaxed"
+                              className="font-medium cursor-pointer text-gray-800 block text-sm leading-relaxed"
                             >
                               {task.title}
                             </label>
-                            <div className="flex flex-wrap items-center gap-1 md:gap-2 mt-1">
+                            <div className="flex flex-wrap items-center gap-1 mt-1">
                               {category && (
                                 <div className="flex items-center gap-1">
                                   <div className={`w-2 h-2 rounded-full ${category.color}`} />
@@ -596,7 +597,7 @@ function App() {
                               {task.priority && task.priority !== 'medium' && (
                                 <Badge 
                                   variant="outline" 
-                                  className={`text-xs px-1 py-0 h-5 ${
+                                  className={`text-xs px-1 py-0 h-4 ${
                                     task.priority === 'urgent' ? 'border-red-200 text-red-700 bg-red-50' :
                                     task.priority === 'high' ? 'border-orange-200 text-orange-700 bg-orange-50' :
                                     'border-green-200 text-green-700 bg-green-50'
@@ -606,7 +607,7 @@ function App() {
                                 </Badge>
                               )}
                               {task.xpValue && (
-                                <Badge variant="outline" className="text-xs px-1 py-0 h-5 bg-yellow-50 border-yellow-200 text-yellow-700">
+                                <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-yellow-50 border-yellow-200 text-yellow-700">
                                   +{task.xpValue} XP
                                 </Badge>
                               )}
@@ -630,20 +631,20 @@ function App() {
               {/* Completed Tasks */}
               {completedTasks.length > 0 && (
                 <Card className="bg-white/40 backdrop-blur-sm border-white/20 shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Heart className="w-5 h-5 text-green-500" />
+                  <CardHeader className="pb-2">
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Heart className="w-4 h-4 text-green-500" />
                       Completed
-                      <Badge variant="outline" className="bg-green-50 border-green-200 text-green-700">
+                      <Badge variant="outline" className="bg-green-50 border-green-200 text-green-700 text-xs">
                         {completedTasks.length}
                       </Badge>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3">
+                  <CardContent className="space-y-2 pt-0">
                     {completedTasks.slice(0, 5).map(task => {
                       const category = getCategoryById(task.categoryId)
                       return (
-                        <div key={task.id} className="flex items-center gap-3 p-3 bg-green-50/50 rounded-lg border border-green-200/50">
+                        <div key={task.id} className="flex items-center gap-2 p-2 bg-green-50/50 rounded-lg border border-green-200/50">
                           <Checkbox
                             id={`completed-task-${task.id}`}
                             checked={task.completed}
@@ -667,7 +668,7 @@ function App() {
                       )
                     })}
                     {completedTasks.length > 5 && (
-                      <div className="text-center pt-2">
+                      <div className="text-center pt-1">
                         <span className="text-xs text-gray-500">
                           +{completedTasks.length - 5} more completed tasks
                         </span>
@@ -703,20 +704,20 @@ function App() {
 
           <TabsContent value="insights">
             <Card className="bg-white/60 backdrop-blur-sm border-white/20 shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Brain className="w-5 h-5 text-purple-500" />
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Brain className="w-4 h-4 text-purple-500" />
                   AI Productivity Insights
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-12">
-                  <Brain className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">AI Insights Coming Soon</h3>
-                  <p className="text-gray-600 mb-6">
+                <div className="text-center py-8">
+                  <Brain className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                  <h3 className="font-semibold mb-2 text-sm">AI Insights Coming Soon</h3>
+                  <p className="text-gray-600 mb-4 text-sm">
                     Add more tasks to unlock powerful AI insights about your productivity patterns.
                   </p>
-                  <Button className="bg-gradient-to-r from-blue-500 to-purple-500">
+                  <Button size="sm" className="bg-gradient-to-r from-blue-500 to-purple-500">
                     Generate First Insights
                   </Button>
                 </div>
@@ -726,10 +727,10 @@ function App() {
 
           <TabsContent value="analytics">
             <Card className="bg-white/60 backdrop-blur-sm border-white/20 shadow-lg">
-              <CardContent className="py-12 text-center">
-                <ChartBar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Analytics Coming Soon</h3>
-                <p className="text-gray-600">
+              <CardContent className="py-8 text-center">
+                <ChartBar className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                <h3 className="font-semibold mb-2 text-sm">Analytics Coming Soon</h3>
+                <p className="text-gray-600 text-sm">
                   Complete more tasks to unlock detailed analytics and insights.
                 </p>
               </CardContent>
@@ -738,25 +739,25 @@ function App() {
 
           <TabsContent value="social">
             <Card className="bg-white/60 backdrop-blur-sm border-white/20 shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="w-5 h-5 text-blue-500" />
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Users className="w-4 h-4 text-blue-500" />
                   Social Features
                 </CardTitle>
               </CardHeader>
-              <CardContent className="text-center py-12">
-                <div className="text-6xl mb-4">🚀</div>
-                <h3 className="text-xl font-bold mb-2">Coming Soon: Social Productivity</h3>
-                <p className="text-gray-600 mb-6">
+              <CardContent className="text-center py-8">
+                <div className="text-4xl mb-3">🚀</div>
+                <h3 className="text-base font-bold mb-2">Coming Soon: Social Productivity</h3>
+                <p className="text-gray-600 mb-4 text-sm">
                   Share achievements, compete with friends, and join global productivity challenges.
                 </p>
                 <div className="space-x-2">
-                  <Button variant="outline">
-                    <Share className="w-4 h-4 mr-2" />
+                  <Button variant="outline" size="sm">
+                    <Share className="w-3 h-3 mr-1" />
                     Share Achievement
                   </Button>
-                  <Button variant="outline">
-                    <Trophy className="w-4 h-4 mr-2" />
+                  <Button variant="outline" size="sm">
+                    <Trophy className="w-3 h-3 mr-1" />
                     View Leaderboard
                   </Button>
                 </div>
