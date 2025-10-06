@@ -5,7 +5,8 @@ import {
   Trophy, Fire, Target, Share, Users, Crown, Lightning, Star,
   Rocket, Heart, ChartBar, Camera, GlobeHemisphereWest, Medal,
   Confetti, GameController, Calendar, MapPin, Microphone, Eye, Atom,
-  CheckCircle, ChartLine
+  CheckCircle, ChartLine, MagicWand, Compass, VideoCamera, Palette,
+  Headphones, ShootingStar, Storefront, PaintBrush, Mountains, Webcam
 } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -470,7 +471,6 @@ function App() {
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5" />
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
-      
       {/* Celebration Overlay */}
       {showCelebration && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
@@ -484,7 +484,6 @@ function App() {
           </div>
         </div>
       )}
-      
       <div className="max-w-7xl mx-auto p-3 md:p-4 relative z-10">
         {/* Mobile-First Header */}
         <div className="mb-6 md:mb-8">
@@ -591,10 +590,10 @@ function App() {
         </div>
 
         <Tabs defaultValue="tasks" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-white/80 backdrop-blur-md border border-gray-200/50 shadow-lg rounded-xl p-1">
+          <TabsList className="text-muted-foreground h-12 items-center justify-center grid w-full grid-cols-4 bg-white/80 backdrop-blur-md border border-gray-200/50 shadow-lg rounded-xl p-1 font-semibold text-5xl">
             <TabsTrigger 
               value="tasks" 
-              className="flex items-center justify-center gap-1 rounded-lg py-1.5 md:py-2 px-2 md:px-3 text-xs font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
+              className="flex items-center justify-center gap-1 rounded-lg py-1.5 md:py-2 px-2 md:px-3 transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900 font-semibold text-xs"
             >
               <CheckCircle className="w-3 h-3 md:w-4 md:h-4" />
               <span className="hidden sm:inline">Tasks</span>
@@ -855,8 +854,34 @@ function App() {
                       </Button>
                     </div>
                     
+                    {/* World-Class Feature Teaser */}
+                    <div className="mt-8 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
+                      <h4 className="font-semibold text-sm text-purple-800 mb-3 flex items-center justify-center gap-2">
+                        <ShootingStar className="w-4 h-4" />
+                        Coming Soon: World-Class Features
+                      </h4>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-center">
+                        <div className="p-2 bg-white/50 rounded-lg">
+                          <MagicWand className="w-5 h-5 text-purple-600 mx-auto mb-1" />
+                          <p className="text-xs text-purple-700 font-medium">AI Coach</p>
+                        </div>
+                        <div className="p-2 bg-white/50 rounded-lg">
+                          <VideoCamera className="w-5 h-5 text-orange-600 mx-auto mb-1" />
+                          <p className="text-xs text-orange-700 font-medium">Stories</p>
+                        </div>
+                        <div className="p-2 bg-white/50 rounded-lg">
+                          <Eye className="w-5 h-5 text-green-600 mx-auto mb-1" />
+                          <p className="text-xs text-green-700 font-medium">AR View</p>
+                        </div>
+                        <div className="p-2 bg-white/50 rounded-lg">
+                          <Microphone className="w-5 h-5 text-blue-600 mx-auto mb-1" />
+                          <p className="text-xs text-blue-700 font-medium">Voice AI</p>
+                        </div>
+                      </div>
+                    </div>
+                    
                     {/* Feature highlights */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 text-left">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-left">
                       <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
                         <Brain className="w-6 h-6 text-blue-600 mb-2" />
                         <h4 className="font-semibold text-sm text-blue-800 mb-1">AI Insights</h4>
@@ -880,87 +905,140 @@ function App() {
           </TabsContent>
 
           <TabsContent value="insights">
-            <Card className="bg-white/60 backdrop-blur-sm border-white/20 shadow-lg">
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center justify-between text-base">
-                  <div className="flex items-center gap-2">
-                    <Brain className="w-4 h-4 text-purple-500" />
-                    AI Productivity Insights
+            <div className="space-y-4">
+              {/* Advanced AI Features Preview */}
+              <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-purple-200 shadow-lg">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <MagicWand className="w-4 h-4 text-purple-500" />
+                    🧠 AI Superpowers
+                    <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs">NEXT-GEN</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="p-3 bg-white/70 rounded-lg border border-blue-200/50">
+                      <h4 className="font-semibold text-sm text-blue-800 mb-1 flex items-center gap-2">
+                        <Compass className="w-4 h-4" />
+                        Predictive AI Coach
+                      </h4>
+                      <p className="text-xs text-blue-600 mb-2">AI predicts your optimal work times and suggests perfect task sequences</p>
+                      <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-blue-50 border-blue-200 text-blue-700">Coming Soon</Badge>
+                    </div>
+                    
+                    <div className="p-3 bg-white/70 rounded-lg border border-purple-200/50">
+                      <h4 className="font-semibold text-sm text-purple-800 mb-1 flex items-center gap-2">
+                        <Heart className="w-4 h-4" />
+                        Mood Intelligence
+                      </h4>
+                      <p className="text-xs text-purple-600 mb-2">AI detects your energy levels and adapts recommendations automatically</p>
+                      <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-purple-50 border-purple-200 text-purple-700">Beta</Badge>
+                    </div>
+                    
+                    <div className="p-3 bg-white/70 rounded-lg border border-green-200/50">
+                      <h4 className="font-semibold text-sm text-green-800 mb-1 flex items-center gap-2">
+                        <TrendUp className="w-4 h-4" />
+                        Future Forecasting
+                      </h4>
+                      <p className="text-xs text-green-600 mb-2">See your productivity trends and predicted performance weeks ahead</p>
+                      <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-green-50 border-green-200 text-green-700">Alpha</Badge>
+                    </div>
+                    
+                    <div className="p-3 bg-white/70 rounded-lg border border-orange-200/50">
+                      <h4 className="font-semibold text-sm text-orange-800 mb-1 flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        Context Awareness
+                      </h4>
+                      <p className="text-xs text-orange-600 mb-2">Location, weather, and calendar-aware task suggestions</p>
+                      <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-orange-50 border-orange-200 text-orange-700">Research</Badge>
+                    </div>
                   </div>
-                  <Button 
-                    size="sm" 
-                    onClick={() => generateProductivityInsight()}
-                    disabled={isAnalyzing || currentTasks.length < 2}
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
-                  >
-                    {isAnalyzing ? (
-                      <div className="flex items-center gap-1">
-                        <div className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin" />
-                        Analyzing
-                      </div>
-                    ) : (
-                      <>
-                        <Sparkle className="w-3 h-3 mr-1" />
-                        Generate
-                      </>
-                    )}
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {aiInsights.length > 0 ? (
-                  <div className="space-y-3">
-                    {aiInsights.map((insight, index) => (
-                      <div 
-                        key={index}
-                        className="insight-card p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200/50"
-                      >
-                        <div className="flex items-start gap-2">
-                          <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
-                            <Sparkle className="w-3 h-3 text-white" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-medium text-sm text-gray-800 mb-1">{insight.title}</h4>
-                            <p className="text-xs text-gray-600 leading-relaxed">{insight.description}</p>
-                            <div className="flex items-center gap-2 mt-2">
-                              <Badge variant="outline" className="text-xs px-1.5 py-0 h-5 bg-blue-50 border-blue-200 text-blue-700">
-                                {insight.confidence}% confidence
-                              </Badge>
-                              {insight.actionable && (
-                                <Badge variant="outline" className="text-xs px-1.5 py-0 h-5 bg-green-50 border-green-200 text-green-700">
-                                  Actionable
+                </CardContent>
+              </Card>
+
+              {/* Current AI Insights */}
+              <Card className="bg-white/60 backdrop-blur-sm border-white/20 shadow-lg">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center justify-between text-base">
+                    <div className="flex items-center gap-2">
+                      <Brain className="w-4 h-4 text-purple-500" />
+                      AI Productivity Insights
+                    </div>
+                    <Button 
+                      size="sm" 
+                      onClick={() => generateProductivityInsight()}
+                      disabled={isAnalyzing || currentTasks.length < 2}
+                      className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
+                    >
+                      {isAnalyzing ? (
+                        <div className="flex items-center gap-1">
+                          <div className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin" />
+                          Analyzing
+                        </div>
+                      ) : (
+                        <>
+                          <Sparkle className="w-3 h-3 mr-1" />
+                          Generate
+                        </>
+                      )}
+                    </Button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {aiInsights.length > 0 ? (
+                    <div className="space-y-3">
+                      {aiInsights.map((insight, index) => (
+                        <div 
+                          key={index}
+                          className="insight-card p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200/50"
+                        >
+                          <div className="flex items-start gap-2">
+                            <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                              <Sparkle className="w-3 h-3 text-white" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-medium text-sm text-gray-800 mb-1">{insight.title}</h4>
+                              <p className="text-xs text-gray-600 leading-relaxed">{insight.description}</p>
+                              <div className="flex items-center gap-2 mt-2">
+                                <Badge variant="outline" className="text-xs px-1.5 py-0 h-5 bg-blue-50 border-blue-200 text-blue-700">
+                                  {insight.confidence}% confidence
                                 </Badge>
-                              )}
+                                {insight.actionable && (
+                                  <Badge variant="outline" className="text-xs px-1.5 py-0 h-5 bg-green-50 border-green-200 text-green-700">
+                                    Actionable
+                                  </Badge>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-8">
-                    <Brain className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2 text-sm">AI-Powered Productivity Insights</h3>
-                    <p className="text-gray-600 mb-4 text-sm">
-                      {currentTasks.length < 2 
-                        ? "Add a few tasks to unlock personalized AI insights about your productivity patterns."
-                        : "Generate insights to discover patterns in your workflow and get personalized recommendations."
-                      }
-                    </p>
-                    {currentTasks.length >= 2 && (
-                      <Button 
-                        size="sm" 
-                        onClick={() => generateProductivityInsight()}
-                        disabled={isAnalyzing}
-                        className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
-                      >
-                        {isAnalyzing ? 'Analyzing...' : 'Generate First Insights'}
-                      </Button>
-                    )}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <Brain className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                      <h3 className="font-semibold mb-2 text-sm">AI-Powered Productivity Insights</h3>
+                      <p className="text-gray-600 mb-4 text-sm">
+                        {currentTasks.length < 2 
+                          ? "Add a few tasks to unlock personalized AI insights about your productivity patterns."
+                          : "Generate insights to discover patterns in your workflow and get personalized recommendations."
+                        }
+                      </p>
+                      {currentTasks.length >= 2 && (
+                        <Button 
+                          size="sm" 
+                          onClick={() => generateProductivityInsight()}
+                          disabled={isAnalyzing}
+                          className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
+                        >
+                          {isAnalyzing ? 'Analyzing...' : 'Generate First Insights'}
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           <TabsContent value="analytics">
@@ -1099,7 +1177,154 @@ function App() {
 
           <TabsContent value="social">
             <div className="space-y-4">
-              {/* Global Challenges */}
+              {/* World-Class Feature Preview Cards */}
+              <Card className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200 shadow-lg">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Rocket className="w-4 h-4 text-purple-500" />
+                    🚀 Coming Soon: Revolutionary Features
+                    <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs">PREVIEW</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {/* AI Superpowers */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-blue-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                          <MagicWand className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">AI Superpowers</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">Predictive task generation, mood-based recommendations, future productivity forecasting</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-blue-50 border-blue-200 text-blue-700">Smart Scheduling</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-purple-50 border-purple-200 text-purple-700">Mood AI</Badge>
+                      </div>
+                    </div>
+
+                    {/* Productivity Stories */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-orange-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                          <VideoCamera className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">Productivity Stories</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">TikTok-style time-lapse videos of your daily accomplishments, perfect for viral sharing</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-orange-50 border-orange-200 text-orange-700">Viral Ready</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-red-50 border-red-200 text-red-700">Auto-Gen</Badge>
+                      </div>
+                    </div>
+
+                    {/* AR Task Visualization */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-green-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                          <Eye className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">AR Task View</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">See your tasks floating in your real environment with spatial computing</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-green-50 border-green-200 text-green-700">Spatial</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-emerald-50 border-emerald-200 text-emerald-700">3D</Badge>
+                      </div>
+                    </div>
+
+                    {/* Virtual Productivity Pets */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-yellow-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                          <Heart className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">AI Productivity Pet</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">AI companions that evolve based on your productivity patterns and celebrate with you</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-yellow-50 border-yellow-200 text-yellow-700">Evolving</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-orange-50 border-orange-200 text-orange-700">Interactive</Badge>
+                      </div>
+                    </div>
+
+                    {/* Voice AI Control */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-indigo-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center">
+                          <Microphone className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">Voice AI</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">Hands-free task management with natural conversation and context understanding</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-indigo-50 border-indigo-200 text-indigo-700">Hands-Free</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-purple-50 border-purple-200 text-purple-700">Contextual</Badge>
+                      </div>
+                    </div>
+
+                    {/* Dynamic Theming */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-pink-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-rose-500 rounded-lg flex items-center justify-center">
+                          <Palette className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">Dynamic Themes</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">AI-powered themes that adapt to your mood, time of day, and productivity state</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-pink-50 border-pink-200 text-pink-700">Adaptive</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-rose-50 border-rose-200 text-rose-700">Mood-Based</Badge>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Viral Features Coming Soon */}
+              <Card className="bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200 shadow-lg">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <ShootingStar className="w-4 h-4 text-orange-500" />
+                    🌟 Viral Social Features
+                    <Badge className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-xs">COMING SOON</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg">
+                      <Trophy className="w-5 h-5 text-orange-500" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">Global Productivity Battles</h4>
+                        <p className="text-xs text-gray-600">Real-time 1v1 productivity competitions with friends</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg">
+                      <Camera className="w-5 h-5 text-orange-500" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">Achievement Cinematics</h4>
+                        <p className="text-xs text-gray-600">Instagram-worthy visual celebrations of your wins</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg">
+                      <Users className="w-5 h-5 text-orange-500" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">Team Workspaces</h4>
+                        <p className="text-xs text-gray-600">Collaborative productivity with shared insights</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg">
+                      <Compass className="w-5 h-5 text-orange-500" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">Productivity DNA</h4>
+                        <p className="text-xs text-gray-600">Genetic-style profile showing your unique traits</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Current Social Features */}
               <Card className="bg-white/60 backdrop-blur-sm border-white/20 shadow-lg">
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-2 text-base">
@@ -1203,7 +1428,7 @@ function App() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
 
 export default App
