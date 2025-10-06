@@ -263,6 +263,7 @@ function App() {
   const [lastCompletedTask, setLastCompletedTask] = useState<Task | null>(null)
   const [moodState] = useState<'focused' | 'creative' | 'routine' | 'social'>('focused')
   const [showSettings, setShowSettings] = useState(false)
+  const [showWorldClassDemo, setShowWorldClassDemo] = useState(false)
   const [autoAI, setAutoAI] = useKV<boolean>('autoAI', true)
   const [darkMode, setDarkMode] = useKV<boolean>('darkMode', false)
   const [notifications, setNotifications] = useKV<boolean>('notifications', true)
@@ -1060,13 +1061,155 @@ function App() {
                         <Plus className="w-4 h-4 mr-2" />
                         Add Your First Task
                       </Button>
-                      <Button 
-                        variant="outline"
-                        className="border-purple-200 hover:border-purple-300 text-purple-600 hover:text-purple-700"
-                      >
-                        <Brain className="w-4 h-4 mr-2" />
-                        Learn About AI Features
-                      </Button>
+                      <Dialog open={showWorldClassDemo} onOpenChange={setShowWorldClassDemo}>
+                        <DialogTrigger asChild>
+                          <Button 
+                            variant="outline"
+                            className="border-purple-200 hover:border-purple-300 text-purple-600 hover:text-purple-700"
+                          >
+                            <Rocket className="w-4 h-4 mr-2" />
+                            Explore Future Features
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                          <DialogHeader>
+                            <DialogTitle className="flex items-center gap-2 text-xl">
+                              <Rocket className="w-5 h-5 text-purple-500" />
+                              🚀 TaskFlow AI: The Future of Productivity
+                            </DialogTitle>
+                          </DialogHeader>
+                          
+                          <div className="space-y-6 py-4">
+                            {/* Revolutionary AI Section */}
+                            <div className="space-y-3">
+                              <h3 className="font-semibold text-lg flex items-center gap-2">
+                                <Brain className="w-5 h-5 text-blue-500" />
+                                Revolutionary AI Brain
+                              </h3>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div className="p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
+                                  <h4 className="font-medium text-sm mb-1">🧬 Neural Task Generation</h4>
+                                  <p className="text-xs text-gray-600">AI reads your emails, calendar, and documents to automatically create tasks before you even think of them</p>
+                                </div>
+                                <div className="p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
+                                  <h4 className="font-medium text-sm mb-1">🔮 Future Prediction Engine</h4>
+                                  <p className="text-xs text-gray-600">See your productivity 30 days in the future and optimize for maximum success</p>
+                                </div>
+                                <div className="p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
+                                  <h4 className="font-medium text-sm mb-1">❤️ Biometric Integration</h4>
+                                  <p className="text-xs text-gray-600">Uses heart rate, stress levels, and sleep data to perfectly time your tasks</p>
+                                </div>
+                                <div className="p-3 bg-gradient-to-r from-orange-50 to-red-50 rounded-lg border border-orange-200">
+                                  <h4 className="font-medium text-sm mb-1">🏠 Smart Environment Control</h4>
+                                  <p className="text-xs text-gray-600">Automatically adjusts lights, temperature, and music for optimal productivity</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Viral Social Features */}
+                            <div className="space-y-3">
+                              <h3 className="font-semibold text-lg flex items-center gap-2">
+                                <Lightning className="w-5 h-5 text-orange-500" />
+                                Viral Social Revolution
+                              </h3>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div className="p-3 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border border-orange-200">
+                                  <h4 className="font-medium text-sm mb-1">⚡ Lightning Battles</h4>
+                                  <p className="text-xs text-gray-600">Real-time productivity tournaments with 1000+ players and instant rewards</p>
+                                </div>
+                                <div className="p-3 bg-gradient-to-r from-pink-50 to-rose-50 rounded-lg border border-pink-200">
+                                  <h4 className="font-medium text-sm mb-1">🎬 AI Achievement Films</h4>
+                                  <p className="text-xs text-gray-600">Hollywood-quality 15-second movies of your accomplishments, auto-shared to TikTok</p>
+                                </div>
+                                <div className="p-3 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg border border-indigo-200">
+                                  <h4 className="font-medium text-sm mb-1">🏆 NFT Achievements</h4>
+                                  <p className="text-xs text-gray-600">Earn blockchain-verified rare achievements that can be traded on productivity marketplaces</p>
+                                </div>
+                                <div className="p-3 bg-gradient-to-r from-cyan-50 to-teal-50 rounded-lg border border-cyan-200">
+                                  <h4 className="font-medium text-sm mb-1">📺 Productivity Streaming</h4>
+                                  <p className="text-xs text-gray-600">Stream your work sessions with overlay stats and chat cheering from viewers</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Next-Gen Experiences */}
+                            <div className="space-y-3">
+                              <h3 className="font-semibold text-lg flex items-center gap-2">
+                                <Eye className="w-5 h-5 text-green-500" />
+                                Next-Gen Experiences
+                              </h3>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div className="p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
+                                  <h4 className="font-medium text-sm mb-1">🥽 AR/VR Task Holograms</h4>
+                                  <p className="text-xs text-gray-600">Project your tasks as 3D holograms in your workspace using Apple Vision Pro</p>
+                                </div>
+                                <div className="p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
+                                  <h4 className="font-medium text-sm mb-1">🐉 AI Dragon Companions</h4>
+                                  <p className="text-xs text-gray-600">Raise virtual dragons that evolve based on your productivity and celebrate with you</p>
+                                </div>
+                                <div className="p-3 bg-gradient-to-r from-violet-50 to-purple-50 rounded-lg border border-violet-200">
+                                  <h4 className="font-medium text-sm mb-1">🗣️ Voice AI Assistant</h4>
+                                  <p className="text-xs text-gray-600">Hands-free task management with natural conversation and context understanding</p>
+                                </div>
+                                <div className="p-3 bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg border border-rose-200">
+                                  <h4 className="font-medium text-sm mb-1">🎨 Dynamic Theme Engine</h4>
+                                  <p className="text-xs text-gray-600">AI-powered themes that adapt to your mood, time of day, and productivity state</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Coming Soon Timeline */}
+                            <div className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-lg p-4 border border-gray-200">
+                              <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                                <Calendar className="w-5 h-5 text-gray-500" />
+                                Development Timeline
+                              </h3>
+                              <div className="space-y-2 text-sm">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                  <span className="font-medium">Q1 2024:</span>
+                                  <span className="text-gray-600">AI Insights & Advanced Gamification</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                                  <span className="font-medium">Q2 2024:</span>
+                                  <span className="text-gray-600">Social Features & Viral Sharing</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                  <span className="font-medium">Q3 2024:</span>
+                                  <span className="text-gray-600">AR/VR Integration & Voice AI</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                  <span className="font-medium">Q4 2024:</span>
+                                  <span className="text-gray-600">Biometric Integration & Quantum AI</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Call to Action */}
+                            <div className="text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
+                              <h3 className="font-bold text-lg mb-2">Be Part of the Future</h3>
+                              <p className="text-gray-600 mb-4">Join TaskFlow AI today and experience productivity like never before. Start with basic features and unlock revolutionary capabilities as we roll them out.</p>
+                              <div className="flex gap-3 justify-center">
+                                <Button 
+                                  onClick={() => {
+                                    setShowWorldClassDemo(false)
+                                    document.getElementById('new-task')?.focus()
+                                  }}
+                                  className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
+                                >
+                                  Start My Journey
+                                </Button>
+                                <Button variant="outline">
+                                  Join Beta Program
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                     
                     {/* World-Class Feature Teaser */}
@@ -1397,142 +1540,273 @@ function App() {
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-2 text-base">
                     <Rocket className="w-4 h-4 text-purple-500" />
-                    🚀 Coming Soon: Revolutionary Features
-                    <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs">PREVIEW</Badge>
+                    🚀 Next-Gen Features: The Future of Productivity
+                    <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs">REVOLUTIONARY</Badge>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {/* AI Superpowers */}
+                    {/* Biometric AI Coach */}
                     <div className="p-3 bg-white/70 rounded-lg border border-blue-200/50 hover:shadow-lg transition-all cursor-pointer">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
-                          <MagicWand className="w-4 h-4 text-white" />
+                          <Heart className="w-4 h-4 text-white" />
                         </div>
-                        <h4 className="font-semibold text-sm">AI Superpowers</h4>
+                        <h4 className="font-semibold text-sm">Biometric AI Coach</h4>
                       </div>
-                      <p className="text-xs text-gray-600 mb-2">Predictive task generation, mood-based recommendations, future productivity forecasting</p>
+                      <p className="text-xs text-gray-600 mb-2">Reads your heart rate, stress levels, and sleep patterns to optimize task timing and energy management</p>
                       <div className="flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-blue-50 border-blue-200 text-blue-700">Smart Scheduling</Badge>
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-purple-50 border-purple-200 text-purple-700">Mood AI</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-blue-50 border-blue-200 text-blue-700">Health Sync</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-purple-50 border-purple-200 text-purple-700">Stress AI</Badge>
                       </div>
                     </div>
 
-                    {/* Productivity Stories */}
-                    <div className="p-3 bg-white/70 rounded-lg border border-orange-200/50 hover:shadow-lg transition-all cursor-pointer">
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-                          <VideoCamera className="w-4 h-4 text-white" />
-                        </div>
-                        <h4 className="font-semibold text-sm">Productivity Stories</h4>
-                      </div>
-                      <p className="text-xs text-gray-600 mb-2">TikTok-style time-lapse videos of your daily accomplishments, perfect for viral sharing</p>
-                      <div className="flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-orange-50 border-orange-200 text-orange-700">Viral Ready</Badge>
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-red-50 border-red-200 text-red-700">Auto-Gen</Badge>
-                      </div>
-                    </div>
-
-                    {/* AR Task Visualization */}
+                    {/* Productivity DNA Analysis */}
                     <div className="p-3 bg-white/70 rounded-lg border border-green-200/50 hover:shadow-lg transition-all cursor-pointer">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                          <Eye className="w-4 h-4 text-white" />
+                          <Atom className="w-4 h-4 text-white" />
                         </div>
-                        <h4 className="font-semibold text-sm">AR Task View</h4>
+                        <h4 className="font-semibold text-sm">Productivity DNA</h4>
                       </div>
-                      <p className="text-xs text-gray-600 mb-2">See your tasks floating in your real environment with spatial computing</p>
+                      <p className="text-xs text-gray-600 mb-2">Genetic-style analysis revealing your unique productivity traits, peak hours, and optimization patterns</p>
                       <div className="flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-green-50 border-green-200 text-green-700">Spatial</Badge>
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-emerald-50 border-emerald-200 text-emerald-700">3D</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-green-50 border-green-200 text-green-700">Genetic</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-emerald-50 border-emerald-200 text-emerald-700">Scientific</Badge>
                       </div>
                     </div>
 
-                    {/* Virtual Productivity Pets */}
-                    <div className="p-3 bg-white/70 rounded-lg border border-yellow-200/50 hover:shadow-lg transition-all cursor-pointer">
+                    {/* Smart Environment Control */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-orange-200/50 hover:shadow-lg transition-all cursor-pointer">
                       <div className="flex items-center gap-2 mb-2">
-                        <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
-                          <Heart className="w-4 h-4 text-white" />
+                        <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                          <GlobeHemisphereWest className="w-4 h-4 text-white" />
                         </div>
-                        <h4 className="font-semibold text-sm">AI Productivity Pet</h4>
+                        <h4 className="font-semibold text-sm">Smart Environment</h4>
                       </div>
-                      <p className="text-xs text-gray-600 mb-2">AI companions that evolve based on your productivity patterns and celebrate with you</p>
+                      <p className="text-xs text-gray-600 mb-2">AI controls your smart home (lights, temperature, music) to create the perfect productivity environment</p>
                       <div className="flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-yellow-50 border-yellow-200 text-yellow-700">Evolving</Badge>
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-orange-50 border-orange-200 text-orange-700">Interactive</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-orange-50 border-orange-200 text-orange-700">IoT Control</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-red-50 border-red-200 text-red-700">Auto-Adapt</Badge>
                       </div>
                     </div>
 
-                    {/* Voice AI Control */}
+                    {/* Productivity Holograms */}
                     <div className="p-3 bg-white/70 rounded-lg border border-indigo-200/50 hover:shadow-lg transition-all cursor-pointer">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center">
-                          <Microphone className="w-4 h-4 text-white" />
+                          <Eye className="w-4 h-4 text-white" />
                         </div>
-                        <h4 className="font-semibold text-sm">Voice AI</h4>
+                        <h4 className="font-semibold text-sm">3D Holograms</h4>
                       </div>
-                      <p className="text-xs text-gray-600 mb-2">Hands-free task management with natural conversation and context understanding</p>
+                      <p className="text-xs text-gray-600 mb-2">Project your tasks as 3D holograms in your workspace using Apple Vision Pro and Meta Quest</p>
                       <div className="flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-indigo-50 border-indigo-200 text-indigo-700">Hands-Free</Badge>
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-purple-50 border-purple-200 text-purple-700">Contextual</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-indigo-50 border-indigo-200 text-indigo-700">Spatial</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-purple-50 border-purple-200 text-purple-700">VR/AR</Badge>
                       </div>
                     </div>
 
-                    {/* Dynamic Theming */}
+                    {/* AI Companion Pets */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-yellow-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                          <GameController className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">AI Dragon Companions</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">Raise virtual dragons that evolve based on your productivity! Feed them completed tasks to unlock powers</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-yellow-50 border-yellow-200 text-yellow-700">Pet Evolution</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-orange-50 border-orange-200 text-orange-700">Gamified</Badge>
+                      </div>
+                    </div>
+
+                    {/* Productivity Time Machine */}
                     <div className="p-3 bg-white/70 rounded-lg border border-pink-200/50 hover:shadow-lg transition-all cursor-pointer">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-rose-500 rounded-lg flex items-center justify-center">
-                          <Palette className="w-4 h-4 text-white" />
+                          <Clock className="w-4 h-4 text-white" />
                         </div>
-                        <h4 className="font-semibold text-sm">Dynamic Themes</h4>
+                        <h4 className="font-semibold text-sm">Time Machine Analytics</h4>
                       </div>
-                      <p className="text-xs text-gray-600 mb-2">AI-powered themes that adapt to your mood, time of day, and productivity state</p>
+                      <p className="text-xs text-gray-600 mb-2">AI predicts your productivity 30 days in the future and shows alternate timeline outcomes</p>
                       <div className="flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-pink-50 border-pink-200 text-pink-700">Adaptive</Badge>
-                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-rose-50 border-rose-200 text-rose-700">Mood-Based</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-pink-50 border-pink-200 text-pink-700">Predictive</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-rose-50 border-rose-200 text-rose-700">Future AI</Badge>
                       </div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Viral Features Coming Soon */}
+              {/* Revolutionary AI Features */}
+              <Card className="bg-gradient-to-r from-cyan-50 to-blue-50 border-cyan-200 shadow-lg">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Atom className="w-4 h-4 text-cyan-500" />
+                    🧬 Breakthrough AI Technologies
+                    <Badge className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs">RESEARCH</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {/* Neural Task Generation */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-cyan-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
+                          <Brain className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">Neural Task Brain</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">AI reads your emails, calendar, documents to automatically generate and prioritize tasks before you think of them</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-cyan-50 border-cyan-200 text-cyan-700">Auto-Gen</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-blue-50 border-blue-200 text-blue-700">Mind Reading</Badge>
+                      </div>
+                    </div>
+
+                    {/* Quantum Productivity Optimization */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-purple-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                          <ShootingStar className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">Quantum Optimization</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">Quantum computing algorithms find the optimal task sequence across infinite timeline possibilities</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-purple-50 border-purple-200 text-purple-700">Quantum</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-indigo-50 border-indigo-200 text-indigo-700">Infinite</Badge>
+                      </div>
+                    </div>
+
+                    {/* Emotion-Driven AI */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-rose-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-rose-500 to-pink-500 rounded-lg flex items-center justify-center">
+                          <Heart className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">Emotion Engine</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">AI detects micro-expressions through your camera to adjust motivation style and task difficulty in real-time</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-rose-50 border-rose-200 text-rose-700">Facial AI</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-pink-50 border-pink-200 text-pink-700">Empathic</Badge>
+                      </div>
+                    </div>
+
+                    {/* Collective Intelligence */}
+                    <div className="p-3 bg-white/70 rounded-lg border border-emerald-200/50 hover:shadow-lg transition-all cursor-pointer">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-green-500 rounded-lg flex items-center justify-center">
+                          <Users className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-sm">Hive Mind Intelligence</h4>
+                      </div>
+                      <p className="text-xs text-gray-600 mb-2">Learn from millions of users' productivity patterns to give you superhuman optimization insights</p>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-emerald-50 border-emerald-200 text-emerald-700">Collective</Badge>
+                        <Badge variant="outline" className="text-xs px-1 py-0 h-4 bg-green-50 border-green-200 text-green-700">Swarm AI</Badge>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Revolutionary Viral Features */}
               <Card className="bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200 shadow-lg">
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-2 text-base">
                     <ShootingStar className="w-4 h-4 text-orange-500" />
-                    🌟 Viral Social Features
-                    <Badge className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-xs">COMING SOON</Badge>
+                    🌟 Viral Social Revolution
+                    <Badge className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-xs">GAME CHANGER</Badge>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg">
-                      <Trophy className="w-5 h-5 text-orange-500" />
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg hover:bg-white/70 transition-all cursor-pointer">
+                      <Lightning className="w-5 h-5 text-orange-500" />
                       <div className="flex-1">
-                        <h4 className="text-sm font-medium">Global Productivity Battles</h4>
-                        <p className="text-xs text-gray-600">Real-time 1v1 productivity competitions with friends</p>
+                        <h4 className="text-sm font-medium">Lightning Productivity Battles</h4>
+                        <p className="text-xs text-gray-600">Real-time global tournaments with 1000+ players, live leaderboards, and instant rewards</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg">
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg hover:bg-white/70 transition-all cursor-pointer">
                       <Camera className="w-5 h-5 text-orange-500" />
                       <div className="flex-1">
-                        <h4 className="text-sm font-medium">Achievement Cinematics</h4>
-                        <p className="text-xs text-gray-600">Instagram-worthy visual celebrations of your wins</p>
+                        <h4 className="text-sm font-medium">AI Achievement Films</h4>
+                        <p className="text-xs text-gray-600">Hollywood-quality 15-second movies of your accomplishments, auto-shared to TikTok</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg">
-                      <Users className="w-5 h-5 text-orange-500" />
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg hover:bg-white/70 transition-all cursor-pointer">
+                      <Webcam className="w-5 h-5 text-orange-500" />
                       <div className="flex-1">
-                        <h4 className="text-sm font-medium">Team Workspaces</h4>
-                        <p className="text-xs text-gray-600">Collaborative productivity with shared insights</p>
+                        <h4 className="text-sm font-medium">Productivity Live Streams</h4>
+                        <p className="text-xs text-gray-600">Stream your productive work sessions with overlay stats and chat cheering</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg">
-                      <Compass className="w-5 h-5 text-orange-500" />
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg hover:bg-white/70 transition-all cursor-pointer">
+                      <Medal className="w-5 h-5 text-orange-500" />
                       <div className="flex-1">
-                        <h4 className="text-sm font-medium">Productivity DNA</h4>
-                        <p className="text-xs text-gray-600">Genetic-style profile showing your unique traits</p>
+                        <h4 className="text-sm font-medium">NFT Achievement Collecting</h4>
+                        <p className="text-xs text-gray-600">Earn blockchain-verified rare achievements that can be traded on productivity marketplaces</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg hover:bg-white/70 transition-all cursor-pointer">
+                      <Storefront className="w-5 h-5 text-orange-500" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">Creator Economy Hub</h4>
+                        <p className="text-xs text-gray-600">Productivity influencers earn from custom challenges, coaching AI templates, and brand partnerships</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg hover:bg-white/70 transition-all cursor-pointer">
+                      <Confetti className="w-5 h-5 text-orange-500" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">Viral Moment Detector</h4>
+                        <p className="text-xs text-gray-600">AI detects your most shareable moments and auto-creates content optimized for each platform</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Cutting-Edge Wellness Integration */}
+              <Card className="bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-200 shadow-lg">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Headphones className="w-4 h-4 text-emerald-500" />
+                    🧘 Wellness-First Productivity
+                    <Badge className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs">HOLISTIC</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg hover:bg-white/70 transition-all cursor-pointer">
+                      <Mountains className="w-5 h-5 text-emerald-500" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">Zen Mode Environment</h4>
+                        <p className="text-xs text-gray-600">Immersive 3D nature environments that adapt to your stress levels and task type</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg hover:bg-white/70 transition-all cursor-pointer">
+                      <Headphones className="w-5 h-5 text-emerald-500" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">Binaural Beat Generator</h4>
+                        <p className="text-xs text-gray-600">AI-generated focus music that syncs with your brainwaves for optimal cognitive performance</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg hover:bg-white/70 transition-all cursor-pointer">
+                      <Heart className="w-5 h-5 text-emerald-500" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">Burnout Prevention AI</h4>
+                        <p className="text-xs text-gray-600">Monitors 47+ wellness indicators to prevent burnout before it happens</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-white/50 rounded-lg hover:bg-white/70 transition-all cursor-pointer">
+                      <PaintBrush className="w-5 h-5 text-emerald-500" />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">Mood-Color Therapy</h4>
+                        <p className="text-xs text-gray-600">Dynamic UI colors based on color psychology research to enhance your emotional state</p>
                       </div>
                     </div>
                   </div>
