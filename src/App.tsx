@@ -6,7 +6,8 @@ import {
   Rocket, Heart, ChartBar, Camera, GlobeHemisphereWest, Medal,
   Confetti, GameController, Calendar, MapPin, Microphone, Eye, Atom,
   CheckCircle, ChartLine, MagicWand, Compass, VideoCamera, Palette,
-  Headphones, ShootingStar, Storefront, PaintBrush, Mountains, Webcam
+  Headphones, ShootingStar, Storefront, PaintBrush, Mountains, Webcam,
+  Bell, Database, Download, Trash
 } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -261,6 +262,13 @@ function App() {
   const [challenges] = useState<Challenge[]>(globalChallenges)
   const [lastCompletedTask, setLastCompletedTask] = useState<Task | null>(null)
   const [moodState] = useState<'focused' | 'creative' | 'routine' | 'social'>('focused')
+  const [showSettings, setShowSettings] = useState(false)
+  const [autoAI, setAutoAI] = useKV<boolean>('autoAI', true)
+  const [darkMode, setDarkMode] = useKV<boolean>('darkMode', false)
+  const [notifications, setNotifications] = useKV<boolean>('notifications', true)
+  const [soundEffects, setSoundEffects] = useKV<boolean>('soundEffects', true)
+  const [autoCategories, setAutoCategories] = useKV<boolean>('autoCategories', true)
+  const [aiPersonality, setAiPersonality] = useKV<string>('aiPersonality', 'helpful')
 
   const colorOptions = [
     'bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-red-500',
@@ -270,16 +278,33 @@ function App() {
   const addTask = async () => {
     if (!newTaskTitle.trim()) return
     
+    // Smart category suggestion when enabled
+    let suggestedCategory = selectedCategory
+    if (autoCategories && newTaskTitle.trim()) {
+      const taskLower = newTaskTitle.toLowerCase()
+      if (taskLower.includes('work') || taskLower.includes('meeting') || taskLower.includes('project')) {
+        suggestedCategory = 'work'
+      } else if (taskLower.includes('exercise') || taskLower.includes('health') || taskLower.includes('doctor')) {
+        suggestedCategory = 'health'
+      } else if (taskLower.includes('learn') || taskLower.includes('study') || taskLower.includes('read')) {
+        suggestedCategory = 'learning'
+      } else if (taskLower.includes('create') || taskLower.includes('design') || taskLower.includes('art')) {
+        suggestedCategory = 'creative'
+      } else if (taskLower.includes('home') || taskLower.includes('family') || taskLower.includes('personal')) {
+        suggestedCategory = 'personal'
+      }
+    }
+    
     // Enhanced task creation with AI-powered suggestions
     const baseXP = 10
-    const category = currentCategories.find(cat => cat.id === selectedCategory)
+    const category = currentCategories.find(cat => cat.id === suggestedCategory)
     const xpValue = Math.round(baseXP * (category?.xpMultiplier || 1))
     
     const newTask: Task = {
       id: Date.now().toString(),
       title: newTaskTitle.trim(),
       completed: false,
-      categoryId: selectedCategory,
+      categoryId: suggestedCategory,
       createdAt: Date.now(),
       priority: 'medium',
       difficulty: 2,
@@ -294,11 +319,16 @@ function App() {
     setNewTaskTitle('')
     
     // Generate AI insight for the new task
-    if (currentTasks.length >= 1) {
+    if (currentTasks.length >= 1 && autoAI) {
       setTimeout(() => generateProductivityInsight(), 500)
     }
     
-    toast.success(`Task added! +${xpValue} XP when completed`)
+    // Show smart categorization feedback
+    if (autoCategories && suggestedCategory !== selectedCategory) {
+      toast.success(`Task added to ${category?.name} category! +${xpValue} XP when completed`)
+    } else {
+      toast.success(`Task added! +${xpValue} XP when completed`)
+    }
   }
 
   const toggleTask = (taskId: string) => {
@@ -359,6 +389,27 @@ function App() {
             
             toast.success(`Task completed! +${xpGained} XP 🎉`)
             setLastCompletedTask(task)
+            
+            // Play completion sound if enabled
+            if (soundEffects) {
+              // Create a simple success sound
+              const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+              const oscillator = audioContext.createOscillator()
+              const gainNode = audioContext.createGain()
+              
+              oscillator.connect(gainNode)
+              gainNode.connect(audioContext.destination)
+              
+              oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime) // C5
+              oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1) // E5
+              oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2) // G5
+              
+              gainNode.gain.setValueAtTime(0.1, audioContext.currentTime)
+              gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3)
+              
+              oscillator.start(audioContext.currentTime)
+              oscillator.stop(audioContext.currentTime + 0.3)
+            }
           }
           
           return updated
@@ -687,10 +738,174 @@ function App() {
                       </SelectContent>
                     </Select>
 
-                    <Button variant="outline" size="sm" className="border-purple-200 h-8 px-3">
-                      <Gear className="w-3 h-3" />
-                      <span className="md:inline hidden ml-2 text-sm">Settings</span>
-                    </Button>
+                    <Dialog open={showSettings} onOpenChange={setShowSettings}>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" size="sm" className="border-purple-200 h-8 px-3">
+                          <Gear className="w-3 h-3" />
+                          <span className="md:inline hidden ml-2 text-sm">Settings</span>
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-md">
+                        <DialogHeader>
+                          <DialogTitle className="flex items-center gap-2">
+                            <Gear className="w-4 h-4" />
+                            TaskFlow Settings
+                          </DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4 py-4">
+                          {/* AI Settings */}
+                          <div className="space-y-3">
+                            <h4 className="text-sm font-medium flex items-center gap-2">
+                              <Brain className="w-4 h-4 text-purple-500" />
+                              AI Features
+                            </h4>
+                            <div className="space-y-3 pl-6">
+                              <div className="flex items-center justify-between">
+                                <Label htmlFor="auto-ai" className="text-sm">Auto-generate insights</Label>
+                                <Switch
+                                  id="auto-ai"
+                                  checked={autoAI}
+                                  onCheckedChange={setAutoAI}
+                                />
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <Label htmlFor="auto-categories" className="text-sm">Smart categorization</Label>
+                                <Switch
+                                  id="auto-categories"
+                                  checked={autoCategories}
+                                  onCheckedChange={setAutoCategories}
+                                />
+                              </div>
+                              <div className="space-y-2">
+                                <Label htmlFor="ai-personality" className="text-sm">AI Personality</Label>
+                                <Select value={aiPersonality} onValueChange={setAiPersonality}>
+                                  <SelectTrigger className="h-8">
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="helpful">Helpful Coach</SelectItem>
+                                    <SelectItem value="motivational">Motivational Trainer</SelectItem>
+                                    <SelectItem value="analytical">Analytical Advisor</SelectItem>
+                                    <SelectItem value="friendly">Friendly Companion</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Appearance */}
+                          <div className="space-y-3">
+                            <h4 className="text-sm font-medium flex items-center gap-2">
+                              <Palette className="w-4 h-4 text-blue-500" />
+                              Appearance
+                            </h4>
+                            <div className="space-y-3 pl-6">
+                              <div className="flex items-center justify-between">
+                                <Label htmlFor="dark-mode" className="text-sm">Dark mode</Label>
+                                <Switch
+                                  id="dark-mode"
+                                  checked={darkMode}
+                                  onCheckedChange={setDarkMode}
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Notifications */}
+                          <div className="space-y-3">
+                            <h4 className="text-sm font-medium flex items-center gap-2">
+                              <Bell className="w-4 h-4 text-orange-500" />
+                              Notifications
+                            </h4>
+                            <div className="space-y-3 pl-6">
+                              <div className="flex items-center justify-between">
+                                <Label htmlFor="notifications" className="text-sm">Push notifications</Label>
+                                <Switch
+                                  id="notifications"
+                                  checked={notifications}
+                                  onCheckedChange={setNotifications}
+                                />
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <Label htmlFor="sound-effects" className="text-sm">Sound effects</Label>
+                                <Switch
+                                  id="sound-effects"
+                                  checked={soundEffects}
+                                  onCheckedChange={setSoundEffects}
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Data Management */}
+                          <div className="space-y-3">
+                            <h4 className="text-sm font-medium flex items-center gap-2">
+                              <Database className="w-4 h-4 text-green-500" />
+                              Data
+                            </h4>
+                            <div className="space-y-2 pl-6">
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="w-full justify-start text-left h-8"
+                                onClick={() => {
+                                  const data = {
+                                    tasks: currentTasks,
+                                    categories: currentCategories,
+                                    userProfile,
+                                    achievements
+                                  }
+                                  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+                                  const url = URL.createObjectURL(blob)
+                                  const a = document.createElement('a')
+                                  a.href = url
+                                  a.download = 'taskflow-backup.json'
+                                  a.click()
+                                  toast.success('Data exported successfully!')
+                                }}
+                              >
+                                <Download className="w-3 h-3 mr-2" />
+                                Export data
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="w-full justify-start text-left h-8 text-red-600 hover:text-red-700"
+                                onClick={() => {
+                                  if (confirm('Are you sure? This will clear all your data.')) {
+                                    setTasks([])
+                                    setCategories(defaultCategories)
+                                    setUserProfile({
+                                      level: 1,
+                                      xp: 0,
+                                      xpToNext: 100,
+                                      streak: 0,
+                                      longestStreak: 0,
+                                      totalTasks: 0,
+                                      joinedAt: Date.now(),
+                                      achievements: [],
+                                      currentChallenges: [],
+                                      productivityDNA: {
+                                        focusType: 'morning',
+                                        workStyle: 'steady',
+                                        motivation: 'progress',
+                                        preferredDifficulty: 'medium'
+                                      }
+                                    })
+                                    setAchievements(defaultAchievements)
+                                    setAiInsights([])
+                                    toast.success('All data cleared')
+                                  }
+                                }}
+                              >
+                                <Trash className="w-3 h-3 mr-2" />
+                                Clear all data
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
               </CardContent>
