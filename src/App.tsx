@@ -222,6 +222,18 @@ const globalChallenges: Challenge[] = [
 function App() {
   const [tasks, setTasks] = useKV<Task[]>('tasks', [])
   const [categories, setCategories] = useKV<Category[]>('categories', defaultCategories)
+  const [newTaskTitle, setNewTaskTitle] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState<string>('work')
+  const [filterCategory, setFilterCategory] = useState<string>('all')
+  const [newCategoryName, setNewCategoryName] = useState('')
+  const [newCategoryColor, setNewCategoryColor] = useState('bg-gray-500')
+  const [showCategoryDialog, setShowCategoryDialog] = useState(false)
+  const [showAIChat, setShowAIChat] = useState(false)
+  const [aiInsights, setAiInsights] = useState<AIInsight[]>([])
+  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [chatMessage, setChatMessage] = useState('')
+  const [chatHistory, setChatHistory] = useState<{role: 'user' | 'ai', message: string}[]>([])
+  const [productivityStats, setProductivityStats] = useState<ProductivityStats | null>(null)
   const [userProfile, setUserProfile] = useKV<UserProfile>('userProfile', {
     level: 1,
     xp: 0,
@@ -231,7 +243,7 @@ function App() {
     totalTasks: 0,
     joinedAt: Date.now(),
     achievements: [],
-    currentChallenges: ['productivity-week'],
+    currentChallenges: [],
     productivityDNA: {
       focusType: 'morning',
       workStyle: 'steady',
@@ -240,64 +252,103 @@ function App() {
     }
   })
   const [achievements, setAchievements] = useKV<Achievement[]>('achievements', defaultAchievements)
-  const [challenges] = useState<Challenge[]>(globalChallenges)
-  
-  // UI State
-  const [newTaskTitle, setNewTaskTitle] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string>('work')
-  const [filterCategory, setFilterCategory] = useState<string>('all')
-  const [newCategoryName, setNewCategoryName] = useState('')
-  const [newCategoryColor, setNewCategoryColor] = useState('bg-gray-500')
-  const [showCategoryDialog, setShowCategoryDialog] = useState(false)
-  const [showAIChat, setShowAIChat] = useState(false)
-  const [showAchievements, setShowAchievements] = useState(false)
-  const [showChallenges, setShowChallenges] = useState(false)
-  const [showProfile, setShowProfile] = useState(false)
-  
-  // AI State
-  const [aiInsights, setAiInsights] = useState<AIInsight[]>([])
-  const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const [chatMessage, setChatMessage] = useState('')
-  const [chatHistory, setChatHistory] = useState<{role: 'user' | 'ai', message: string}[]>([])
-  const [productivityStats, setProductivityStats] = useState<ProductivityStats | null>(null)
-  
-  // Advanced UI State
-  const [currentView, setCurrentView] = useState<'tasks' | 'challenges' | 'social'>('tasks')
-  const [energyLevel, setEnergyLevel] = useState<number>(75)
-  const [moodState, setMoodState] = useState<'focused' | 'creative' | 'routine' | 'social'>('focused')
   const [showCelebration, setShowCelebration] = useState(false)
+  const [showProfile, setShowProfile] = useState(false)
+  const [showChallenges, setShowChallenges] = useState(false)
+  const [showAchievements, setShowAchievements] = useState(false)
+  const [challenges] = useState<Challenge[]>(globalChallenges)
   const [lastCompletedTask, setLastCompletedTask] = useState<Task | null>(null)
-  
+  const [moodState] = useState<'focused' | 'creative' | 'routine' | 'social'>('focused')
+
   const colorOptions = [
     'bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-red-500',
-    'bg-yellow-500', 'bg-pink-500', 'bg-indigo-500', 'bg-orange-500',
-    'bg-teal-500', 'bg-cyan-500', 'bg-lime-500', 'bg-emerald-500'
+    'bg-yellow-500', 'bg-pink-500', 'bg-indigo-500', 'bg-orange-500'
   ]
 
-  // XP and Achievement System
+  // AI-powered functions
+  const generateAIInsights = async () => {
+    if (!tasks || tasks.length < 3) return // Need some data for meaningful insights
+    
+    setIsAnalyzing(true)
+    try {
+      const taskData = tasks.map(t => ({
+        title: t.title,
+        category: categories?.find(c => c.id === t.categoryId)?.name || 'Unknown',
+        completed: t.completed,
+        createdAt: t.createdAt,
+        completedAt: t.completedAt
+      }))
+
+      const prompt = spark.llmPrompt`
+        Analyze these tasks and provide 3-4 actionable insights to help improve productivity:
+        
+        Tasks: ${JSON.stringify(taskData)}
+        
+        Focus on:
+        1. Task prioritization recommendations
+        2. Category organization suggestions  
+        3. Productivity pattern insights
+        4. Specific task suggestions
+        
+        Return insights as JSON in this format:
+        {
+          "insights": [
+            {
+              "type": "priority|category|productivity|suggestion",
+              "title": "Brief insight title",
+              "description": "Detailed explanation and recommendation", 
+              "confidence": 0.8,
+              "actionable": true
+            }
+          ]
+        }
+      `
+      
+      const response = await spark.llm(prompt, "gpt-4o", true)
+      const data = JSON.parse(response)
+      setAiInsights(data.insights || [])
+      
+      // Show success notification
+      toast.success(`🧠 AI analysis complete! Found ${data.insights?.length || 0} insights`, {
+        action: {
+          label: 'View insights',
+          onClick: () => {
+            const insightsTab = document.querySelector('[value="insights"]') as HTMLElement
+            insightsTab?.click()
+          }
+        }
+      })
+      
+    } catch (error) {
+      console.error('AI analysis failed:', error)
+      toast.error('AI analysis failed. Please try again.')
+    } finally {
+      setIsAnalyzing(false)
+    }
+  }
+
+  // Calculate XP for a task based on difficulty, priority, and category
   const calculateXP = (task: Task, category: Category): number => {
     let baseXP = 10
     
     // Priority multiplier
-    const priorityMultipliers = { low: 0.8, medium: 1.0, high: 1.5, urgent: 2.0 }
-    baseXP *= priorityMultipliers[task.priority || 'medium']
+    const priorityMultiplier = {
+      'low': 0.8,
+      'medium': 1.0,
+      'high': 1.5,
+      'urgent': 2.0
+    }
     
     // Difficulty multiplier
-    if (task.difficulty) {
-      baseXP *= task.difficulty * 0.3 + 0.5 // 0.8x to 2.0x
-    }
+    const difficultyMultiplier = task.difficulty || 1
     
     // Category multiplier
-    baseXP *= category.xpMultiplier || 1.0
+    const categoryMultiplier = category.xpMultiplier || 1.0
     
-    // Streak bonus
-    if (userProfile && userProfile.streak > 0) {
-      baseXP *= 1 + (userProfile.streak * 0.1) // 10% bonus per streak day
-    }
-    
-    return Math.round(baseXP)
+    return Math.round(baseXP * (priorityMultiplier[task.priority || 'medium']) * difficultyMultiplier * categoryMultiplier)
   }
 
+  // Add XP and handle level ups
   const addXP = (amount: number) => {
     setUserProfile(prev => {
       const current = prev || {
@@ -433,66 +484,6 @@ function App() {
       // Fallback to clipboard
       navigator.clipboard.writeText(`${text} Check out TaskFlow AI: ${window.location.href}`)
       toast.success('Achievement copied to clipboard!')
-    }
-  }
-  const generateAIInsights = async () => {
-    if (!tasks || tasks.length < 3) return // Need some data for meaningful insights
-    
-    setIsAnalyzing(true)
-    try {
-      const taskData = tasks.map(t => ({
-        title: t.title,
-        category: categories?.find(c => c.id === t.categoryId)?.name || 'Unknown',
-        completed: t.completed,
-        createdAt: t.createdAt,
-        completedAt: t.completedAt
-      }))
-
-      const prompt = spark.llmPrompt`
-        Analyze these tasks and provide 3-4 actionable insights to help improve productivity:
-        
-        Tasks: ${JSON.stringify(taskData)}
-        
-        Focus on:
-        1. Task prioritization recommendations
-        2. Category organization suggestions  
-        3. Productivity pattern insights
-        4. Specific task suggestions
-        
-        Return insights as JSON in this format:
-        {
-          "insights": [
-            {
-              "type": "priority|category|productivity|suggestion",
-              "title": "Brief insight title",
-              "description": "Detailed explanation and recommendation", 
-              "confidence": 0.8,
-              "actionable": true
-            }
-          ]
-        }
-      `
-      
-      const response = await spark.llm(prompt, "gpt-4o", true)
-      const data = JSON.parse(response)
-      setAiInsights(data.insights || [])
-      
-      // Show success notification
-      toast.success(`🧠 AI analysis complete! Found ${data.insights?.length || 0} insights`, {
-        action: {
-          label: 'View insights',
-          onClick: () => {
-            const insightsTab = document.querySelector('[value="insights"]') as HTMLElement
-            insightsTab?.click()
-          }
-        }
-      })
-      
-    } catch (error) {
-      console.error('AI analysis failed:', error)
-      toast.error('AI analysis failed. Please try again.')
-    } finally {
-      setIsAnalyzing(false)
     }
   }
 
