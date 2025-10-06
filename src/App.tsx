@@ -451,27 +451,31 @@ function App() {
           <TabsList className="grid w-full grid-cols-4 bg-white/80 backdrop-blur-md border border-gray-200/50 shadow-lg rounded-2xl p-1">
             <TabsTrigger 
               value="tasks" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-3 px-2 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
+              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-3 px-1 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
             >
               <CheckCircle className="w-4 h-4 md:w-5 md:h-5" />
+              <span className="hidden sm:inline">Tasks</span>
             </TabsTrigger>
             <TabsTrigger 
               value="insights" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 px-2 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
+              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 px-1 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
             >
               <Brain className="w-4 h-4 md:w-5 md:h-5" />
+              <span className="hidden sm:inline">Insights</span>
             </TabsTrigger>
             <TabsTrigger 
               value="analytics" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 px-2 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
+              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 px-1 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
             >
               <ChartLine className="w-4 h-4 md:w-5 md:h-5" />
+              <span className="hidden sm:inline">Analytics</span>
             </TabsTrigger>
             <TabsTrigger 
               value="social" 
-              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 px-2 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
+              className="flex items-center justify-center gap-1 md:gap-2 rounded-xl py-2 px-1 md:px-4 text-xs md:text-sm font-medium transition-all duration-200 data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-gray-600 hover:text-gray-900"
             >
               <Users className="w-4 h-4 md:w-5 md:h-5" />
+              <span className="hidden sm:inline">Social</span>
             </TabsTrigger>
           </TabsList>
 
